@@ -21,8 +21,8 @@ injected via `start({ plugins })`.
 ```
 consuming-project/
 ├── vendor/middle-tier/       <- this repo, vendored in, read-only
-│   └── src/core/             <- routing, auth, config, static files, marklogic client
-└── middle-tier/              <- host-owned: composition root + plugins
+│   ├── src/core/             <- routing, auth, config, static files, marklogic client
+│   └── test/core/            <- this repo's own tests (not needed by consumers)└── middle-tier/              <- host-owned: composition root + plugins
     ├── bin/start.sh, stop.sh
     ├── certs/
     └── src/
