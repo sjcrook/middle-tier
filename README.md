@@ -36,10 +36,30 @@ the only file that bridges the two trees. This split is what makes core safely
 reusable: it never assumes anything about where it lives in a project, and it
 never discovers or requires plugin code on its own.
 
+## Vendoring this repo
+
+Add this repo as a git submodule under `vendor/` in your project:
+
+```bash
+git submodule add git@github.com:sjcrook/middle-tier.git vendor/middle-tier
+git submodule update --init --recursive
+```
+
+Anyone cloning your project afterwards needs to pull the submodule contents
+too:
+
+```bash
+git clone --recurse-submodules <your-project-url>
+# or, if already cloned:
+git submodule update --init --recursive
+```
+
+A plain copy into `vendor/middle-tier` also works if you don't want the
+submodule link — just remember that copy won't track upstream changes.
+
 ## Quick start in a new project
 
-1. Vendor this repo into `vendor/middle-tier` (plain copy or git submodule —
-   your call).
+1. Vendor this repo into `vendor/middle-tier` (see above).
 2. Scaffold the host-owned side:
    ```bash
    vendor/middle-tier/template/create-scaffold-app.sh
