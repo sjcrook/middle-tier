@@ -1,7 +1,7 @@
 #!/bin/bash
 # Scaffolds a host-owned middle-tier/ directory (composition root + plugins)
-# in a project that vendors this repo.
-# Usage: vendor/middle-tier/template/create-scaffold-app.sh [target] [--force]
+# in a project that includes this repo as an external dependency.
+# Usage: external/middle-tier/template/create-scaffold-app.sh [target] [--force]
 # Run from the consuming project's repo root; target defaults to ./middle-tier.
 
 set -euo pipefail

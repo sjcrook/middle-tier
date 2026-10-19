@@ -9,7 +9,8 @@ reusable across projects via a plugin architecture.
 `src/core` is the reusable framework: HTTP + HTTPS listeners, request routing,
 session auth, static file serving, and generic MarkLogic REST wrappers (HTTP
 Digest auth, SPARQL query/update). It has **no business logic**, and it is
-never edited by a consuming project — it's vendored in and treated as
+never edited by a consuming project — it's included as an external dependency
+and treated as
 read-only.
 
 Business/use-case logic lives in **plugins**, which live in the *consuming*
@@ -20,13 +21,13 @@ injected via `start({ plugins })`.
 
 ```
 consuming-project/
-├── vendor/middle-tier/       <- this repo, vendored in, read-only
+├── external/middle-tier/     <- this repo, included read-only
 │   ├── src/core/             <- routing, auth, config, static files, marklogic client
 │   └── test/core/            <- this repo's own tests (not needed by consumers)└── middle-tier/              <- host-owned: composition root + plugins
     ├── bin/start.sh, stop.sh
     ├── certs/
     └── src/
-        ├── server.js          <- requires vendor/middle-tier/src/core/server + plugins.config
+        ├── server.js          <- requires external/middle-tier/src/core/server + plugins.config
         ├── plugins.config.js  <- lists enabled plugins
         └── plugins/<name>/    <- your app-specific routes and logic
 ```
@@ -38,10 +39,10 @@ never discovers or requires plugin code on its own.
 
 ## Vendoring this repo
 
-Add this repo as a git submodule under `vendor/` in your project:
+Add this repo as a git submodule under `external/` in your project:
 
 ```bash
-git submodule add git@github.com:sjcrook/middle-tier.git vendor/middle-tier
+git submodule add git@github.com:sjcrook/middle-tier.git external/middle-tier
 git submodule update --init --recursive
 ```
 
@@ -54,15 +55,15 @@ git clone --recurse-submodules <your-project-url>
 git submodule update --init --recursive
 ```
 
-A plain copy into `vendor/middle-tier` also works if you don't want the
+A plain copy into `external/middle-tier` also works if you don't want the
 submodule link — just remember that copy won't track upstream changes.
 
 ## Quick start in a new project
 
-1. Vendor this repo into `vendor/middle-tier` (see above).
+1. Include this repo in `external/middle-tier` (see above).
 2. Scaffold the host-owned side:
    ```bash
-   vendor/middle-tier/template/create-scaffold-app.sh
+   external/middle-tier/template/create-scaffold-app.sh
    ```
    This creates `./middle-tier/` with a working `server.js`,
    `plugins.config.js`, `bin/start.sh` / `bin/stop.sh`, and the local endpoint

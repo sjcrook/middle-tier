@@ -8,7 +8,7 @@ function isEnabled(value) {
   return value === 'true' || value === '1';
 }
 
-// Core is a vendored dependency and may live at any depth under the app
+// Core is an external dependency and may live at any depth under the app
 // (see bin/start.sh), so path defaults are resolved from the process's
 // working directory — the app's own middle-tier/ folder — never from
 // __dirname. Override via env var if an app's layout differs.

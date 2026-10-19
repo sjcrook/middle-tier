@@ -36,7 +36,7 @@ PID_FILE="$MT_DIR/mt.pid"
 LOG_FILE="$MT_DIR/mt.log"
 SERVER_JS="$MT_DIR/src/server.js"
 
-# Core (vendor/middle-tier) resolves cert and static paths relative to the
+# Core (external/middle-tier) resolves cert and static paths relative to the
 # working directory, so pin it to this app's own middle-tier/ folder here.
 cd "$MT_DIR"
 
